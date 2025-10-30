@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_shared_contactos",
+  "info": {
+    "displayName": "Contacto",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "QR": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "nombre": {
+      "type": "string"
+    },
+    "telefono": {
+      "type": "biginteger"
+    },
+    "email_contacto": {
+      "type": "email"
+    }
+  },
+  "config": {}
+}

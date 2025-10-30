@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_shared_ctas",
+  "info": {
+    "displayName": "CTA",
+    "icon": "command"
+  },
+  "options": {},
+  "attributes": {
+    "Descripcion": {
+      "type": "string"
+    },
+    "Imagen": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "boton_link": {
+      "type": "component",
+      "component": "shared.nav-bar",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_footers",
+  "info": {
+    "displayName": "Footer",
+    "icon": "hashtag"
+  },
+  "options": {},
+  "attributes": {
+    "texto_derechos": {
+      "type": "string"
+    },
+    "Columna": {
+      "type": "component",
+      "component": "shared.nav-bar",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_shared_ubicacions",
+  "info": {
+    "displayName": "Ubicacion",
+    "icon": "pinMap"
+  },
+  "options": {},
+  "attributes": {
+    "Titulo": {
+      "type": "string"
+    },
+    "Descripcion": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "Imagen": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  },
+  "config": {}
+}

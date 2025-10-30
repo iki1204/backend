@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_shared_nav_bars",
+  "info": {
+    "displayName": "NavBar",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "etiqueta": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  },
+  "config": {}
+}

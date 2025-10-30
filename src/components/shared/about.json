@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_shared_abouts",
+  "info": {
+    "displayName": "About",
+    "icon": "information"
+  },
+  "options": {},
+  "attributes": {
+    "Titulo": {
+      "type": "string"
+    },
+    "Descripcion": {
+      "type": "string"
+    },
+    "Imagen": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Contacto": {
+      "type": "component",
+      "component": "shared.contacto",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}
