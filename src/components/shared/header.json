@@ -23,6 +23,11 @@
       "type": "component",
       "component": "shared.nav-bar",
       "repeatable": true
+    },
+    "Botones": {
+      "type": "component",
+      "component": "shared.quote",
+      "repeatable": true
     }
   },
   "config": {}

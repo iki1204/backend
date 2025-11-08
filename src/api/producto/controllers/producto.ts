@@ -42,7 +42,7 @@ export default factories.createCoreController('api::producto.producto', ({ strap
                     cantidad_stock: p.cantidad_stock ? parseInt(p.cantidad_stock) : 0,
                     estado: p.estado,   
                     ID_Categoria: p.categoria_id,
-                    ID_Nombre: p.nombre.toLowerCase().replace(/\s+/g, '-'),
+                    ID_Nombre: normalizeSlug(p.nombre),
                     categoria: categoria.length > 0 ? categoria[0].id : null,
                 };
 
@@ -56,7 +56,6 @@ export default factories.createCoreController('api::producto.producto', ({ strap
                             data, 
                         }); 
                 }else { 
-                    data.ID_Nombre = p.nombre.toLowerCase().replace(/\s+/g, '-');
                     await strapi.entityService.create('api::producto.producto', { 
                         data 
                     }); 
@@ -72,3 +71,13 @@ export default factories.createCoreController('api::producto.producto', ({ strap
         }
     },
 }));
+
+function normalizeSlug(nombre) {
+  return nombre
+    .normalize("NFD")                    // separa acentos (á -> a + ´)
+    .replace(/[\u0300-\u036f]/g, "")     // elimina los acentos
+    .replace(/[^A-Za-z0-9-_.~]+/g, "-")  // reemplaza todo lo no permitido
+    .replace(/--+/g, "-")                // evita guiones dobles
+    .replace(/^-+|-+$/g, "")             // limpia guiones al inicio/final
+    .toLowerCase();
+}

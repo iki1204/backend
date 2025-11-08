@@ -18,11 +18,13 @@ const populateConfig = {
         populate:{
           logo: true
         }
-      }
+      },
+      Botones: true
     }
   },
   footer: {
     populate: {
+      logo: true,
       Columna: {
         populate:{
           logo: true

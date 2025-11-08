@@ -9,6 +9,16 @@
     "texto_derechos": {
       "type": "string"
     },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
     "Columna": {
       "type": "component",
       "component": "shared.nav-bar",
