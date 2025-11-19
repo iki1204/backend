@@ -29,9 +29,17 @@ export default factories.createCoreController(
         let count = 0;
         for (const p of productosExternos) {
           const categoria = await strapi.entityService.findMany(
+            
             "api::categoria.categoria",
             {
               filters: { ID_Categoria: p.categoria_id },
+            }
+          );
+
+          const marca = await strapi.entityService.findMany(
+            "api::marca.marca",
+            {
+              filters: { ID_Marca: p.marca_id },
             }
           );
 
@@ -66,7 +74,10 @@ export default factories.createCoreController(
             cantidad_stock: p.cantidad_stock ? parseInt(p.cantidad_stock) : 0,
             estado: p.estado,
             ID_Categoria: p.categoria_id,
+            ID_Marca: p.marca_id,
             ID_Nombre: slug,
+
+            marca: marca.length > 0 ? marca[0].id : null,
             categoria: categoria.length > 0 ? categoria[0].id : null,
           };
 

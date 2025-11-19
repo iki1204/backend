@@ -23,6 +23,16 @@
       "type": "component",
       "component": "shared.nav-bar",
       "repeatable": true
+    },
+    "Contactos": {
+      "type": "component",
+      "component": "shared.contacto",
+      "repeatable": true
+    },
+    "Ubicacion": {
+      "type": "component",
+      "component": "shared.ubicacion",
+      "repeatable": false
     }
   },
   "config": {}

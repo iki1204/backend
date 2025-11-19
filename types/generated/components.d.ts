@@ -55,8 +55,10 @@ export interface SharedFooter extends Struct.ComponentSchema {
   };
   attributes: {
     Columna: Schema.Attribute.Component<'shared.nav-bar', true>;
+    Contactos: Schema.Attribute.Component<'shared.contacto', true>;
     logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     texto_derechos: Schema.Attribute.String;
+    Ubicacion: Schema.Attribute.Component<'shared.ubicacion', false>;
   };
 }
 
@@ -69,7 +71,10 @@ export interface SharedHeader extends Struct.ComponentSchema {
   attributes: {
     Botones: Schema.Attribute.Component<'shared.quote', true>;
     Etiqueta: Schema.Attribute.String;
-    Logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    Logo: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     subitem: Schema.Attribute.Component<'shared.nav-bar', true>;
   };
 }

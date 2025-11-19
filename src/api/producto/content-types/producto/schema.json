@@ -40,6 +40,22 @@
         }
       }
     },
+    "Precio2": {
+      "type": "decimal",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Precio3": {
+      "type": "decimal",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "cantidad_stock": {
       "type": "decimal",
       "pluginOptions": {
@@ -100,6 +116,12 @@
       "target": "api::categoria.categoria",
       "inversedBy": "productos"
     },
+    "marca": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::marca.marca",
+      "inversedBy": "productos"
+    },
     "ID_Nombre": {
       "type": "uid",
       "pluginOptions": {
@@ -117,6 +139,14 @@
         }
       },
       "unique": false
+    },
+    "ID_Marca": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

@@ -567,6 +567,35 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiMarcaMarca extends Struct.CollectionTypeSchema {
+  collectionName: 'marcas';
+  info: {
+    displayName: 'Marca';
+    pluralName: 'marcas';
+    singularName: 'marca';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ID_Marca: Schema.Attribute.String;
+    ID_Nombre: Schema.Attribute.UID<'nombre'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::marca.marca'> &
+      Schema.Attribute.Private;
+    marc_img: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    nombre: Schema.Attribute.String;
+    productos: Schema.Attribute.Relation<'oneToMany', 'api::producto.producto'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPaginaPagina extends Struct.CollectionTypeSchema {
   collectionName: 'paginas';
   info: {
@@ -670,6 +699,12 @@ export interface ApiProductoProducto extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    ID_Marca: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     ID_Nombre: Schema.Attribute.UID<'nombre'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -690,6 +725,7 @@ export interface ApiProductoProducto extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::producto.producto'
     >;
+    marca: Schema.Attribute.Relation<'manyToOne', 'api::marca.marca'>;
     nombre: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -697,6 +733,18 @@ export interface ApiProductoProducto extends Struct.CollectionTypeSchema {
         };
       }>;
     precio: Schema.Attribute.Decimal &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Precio2: Schema.Attribute.Decimal &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Precio3: Schema.Attribute.Decimal &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1222,6 +1270,7 @@ declare module '@strapi/strapi' {
       'api::categoria.categoria': ApiCategoriaCategoria;
       'api::formulario.formulario': ApiFormularioFormulario;
       'api::global.global': ApiGlobalGlobal;
+      'api::marca.marca': ApiMarcaMarca;
       'api::pagina.pagina': ApiPaginaPagina;
       'api::producto.producto': ApiProductoProducto;
       'plugin::content-releases.release': PluginContentReleasesRelease;
