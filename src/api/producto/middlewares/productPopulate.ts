@@ -7,6 +7,7 @@ const populateConfig = {
   datasheets:true
 }
 
+
 import type { Core } from '@strapi/strapi';
 
 export default (config, { strapi }: { strapi: Core.Strapi }) => {
