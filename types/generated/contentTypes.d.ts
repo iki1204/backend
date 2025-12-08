@@ -681,7 +681,7 @@ export interface ApiProductoProducto extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    descripcion: Schema.Attribute.Text &
+    descripcion: Schema.Attribute.Blocks &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

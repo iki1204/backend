@@ -72,14 +72,6 @@
         }
       }
     },
-    "descripcion": {
-      "type": "text",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
     "imagen": {
       "type": "media",
       "pluginOptions": {
@@ -142,6 +134,14 @@
     },
     "ID_Marca": {
       "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "descripcion": {
+      "type": "blocks",
       "pluginOptions": {
         "i18n": {
           "localized": true
