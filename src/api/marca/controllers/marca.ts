@@ -25,6 +25,10 @@ export default factories.createCoreController(
 
         const marcasExternas = await response.json();
 
+        const idsExternos = new Set(
+          marcasExternas.map((marca: any) => String(marca.id))
+        );
+
         // Procesar el json obtenido para identificar cada categoría
         let count = 0;
         for (const m of marcasExternas) {
@@ -61,7 +65,28 @@ export default factories.createCoreController(
           count++;
         }
 
-        ctx.body = { message: "Categorías sincronizadas correctamente", count };
+        const marcasLocales = await strapi.entityService.findMany(
+          "api::marca.marca",
+          {
+            fields: ["id", "ID_Marca"],
+            pagination: { limit: -1 },
+          }
+        );
+
+        let deleted = 0;
+        for (const marca of marcasLocales) {
+          const idMarca = marca.ID_Marca ? String(marca.ID_Marca) : null;
+          if (idMarca && !idsExternos.has(idMarca)) {
+            await strapi.entityService.delete("api::marca.marca", marca.id);
+            deleted++;
+          }
+        }
+
+        ctx.body = {
+          message: "Categorías sincronizadas correctamente",
+          count,
+          deleted,
+        };
       } catch (err) {
         strapi.log.error("Error en syncFromContifico (categorías):", err);
         ctx.body = {

@@ -25,6 +25,10 @@ export default factories.createCoreController(
 
         const productosExternos = await response.json();
 
+        const codigosExternos = new Set(
+          productosExternos.map((producto: any) => String(producto.codigo))
+        );
+
         // Procesar el json obtenido para identificar cada producto
         let count = 0;
         for (const p of productosExternos) {
@@ -103,7 +107,28 @@ export default factories.createCoreController(
 
           count++;
         }
-        ctx.body = { message: "Sincronización completada", count };
+
+        const productosLocales = await strapi.entityService.findMany(
+          "api::producto.producto",
+          {
+            fields: ["id", "codigo"],
+            pagination: { limit: -1 },
+          }
+        );
+
+        let deleted = 0;
+        for (const producto of productosLocales) {
+          const codigo = producto.codigo ? String(producto.codigo) : null;
+          if (codigo && !codigosExternos.has(codigo)) {
+            await strapi.entityService.delete(
+              "api::producto.producto",
+              producto.id
+            );
+            deleted++;
+          }
+        }
+
+        ctx.body = { message: "Sincronización completada", count, deleted };
       } catch (err: any) {
         strapi.log.error("Error en syncFromContifico:", err);
         ctx.body = {
