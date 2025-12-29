@@ -74,6 +74,7 @@ export default factories.createCoreController(
           const data: any = {
             nombre: p.nombre,
             codigo: p.codigo,
+            identifier: p.id,
             precio: p.pvp1 ? parseFloat(p.pvp1) : 0,
             Precio2 : p.pvp2 ? parseFloat(p.pvp2) : 0,
             Precio3 : p.pvp3 ? parseFloat(p.pvp3) : 0,
@@ -133,6 +134,92 @@ export default factories.createCoreController(
         strapi.log.error("Error en syncFromContifico:", err);
         ctx.body = {
           error: "Error al sincronizar productos",
+          details: err.message,
+        };
+      }
+    },
+    async syncStockByID(ctx) {
+      try {
+        const { id } = ctx.params;
+        console.log(id);
+
+        if (!id) {
+          return ctx.badRequest("El ID del producto es requerido.");
+        }
+
+        const apiUrl = process.env.CONTIFICO_API_URL_PRODUCTO;
+        const apiKey = process.env.CONTIFICO_API_KEY;
+
+        if (!apiUrl || !apiKey) {
+          ctx.status = 500;
+          ctx.body = {
+            error:
+              "Faltan variables de entorno para acceder a la API de Contífico.",
+          };
+          return;
+        }
+
+        const url = `${apiUrl}${encodeURIComponent(id)}`;
+
+
+        const response = await fetch(url, {
+          headers: { Authorization: apiKey },
+        });
+
+        if (!response.ok) {
+          const text = await response.text();
+          throw new Error(`Error HTTP ${response.status}: ${text}`);
+        }
+
+        const data = await response.json();
+        const productoExterno = Array.isArray(data)
+          ? data.find((item) => item.id === id) ?? data[0]
+          : data;
+
+        if (!productoExterno) {
+          ctx.status = 404;
+          ctx.body = { error: "Producto no encontrado en Contífico." };
+          return;
+        }
+
+        const existente = await strapi.entityService.findMany(
+          "api::producto.producto",
+          {
+            filters: { identifier: id },
+            limit: 1,
+          }
+        );
+
+        if (!existente.length) {
+          ctx.status = 404;
+          ctx.body = { error: "Producto no encontrado en el catálogo local." };
+          return;
+        }
+
+        const cantidadStock = productoExterno.cantidad_stock
+          ? parseFloat(productoExterno.cantidad_stock)
+          : 0;
+
+        await strapi.entityService.update(
+          "api::producto.producto",
+          existente[0].id,
+          {
+            data: {
+              cantidad_stock: cantidadStock,
+            },
+          }
+        );
+
+        ctx.body = {
+          message: "Stock sincronizado correctamente.",
+          id,
+          cantidad_stock: cantidadStock,
+        };
+      } catch (err: any) {
+        strapi.log.error("Error en syncStockByID:", err);
+        ctx.status = 500;
+        ctx.body = {
+          error: "Error al sincronizar stock",
           details: err.message,
         };
       }

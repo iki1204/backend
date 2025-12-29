@@ -711,6 +711,12 @@ export interface ApiProductoProducto extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    identifier: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     imagen: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true

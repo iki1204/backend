@@ -32,6 +32,14 @@
       },
       "unique": true
     },
+    "identifier": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "precio": {
       "type": "decimal",
       "pluginOptions": {
