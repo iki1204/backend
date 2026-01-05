@@ -4,7 +4,8 @@
 
 const populateConfig = {
   imagen:true,
-  datasheets:true
+  datasheets:true,
+  oferta:true
 }
 
 

@@ -738,6 +738,12 @@ export interface ApiProductoProducto extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    oferta: Schema.Attribute.Component<'shared.oferta', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     precio: Schema.Attribute.Decimal &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -751,6 +757,12 @@ export interface ApiProductoProducto extends Struct.CollectionTypeSchema {
         };
       }>;
     Precio3: Schema.Attribute.Decimal &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Precio4: Schema.Attribute.Decimal &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1249,7 +1261,9 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    tipoUsuario: Schema.Attribute.Integer;
+    tipoUsuario: Schema.Attribute.Enumeration<
+      ['tipo1', 'tipo2', 'tipo3', 'tipo4']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

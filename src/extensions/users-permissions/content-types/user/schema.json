@@ -67,7 +67,13 @@
       "configurable": false
     },
     "tipoUsuario": {
-      "type": "integer"
+      "type": "enumeration",
+      "enum": [
+        "tipo1",
+        "tipo2",
+        "tipo3",
+        "tipo4"
+      ]
     }
   }
 }

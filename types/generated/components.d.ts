@@ -124,6 +124,20 @@ export interface SharedNavBar extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedOferta extends Struct.ComponentSchema {
+  collectionName: 'components_shared_ofertas';
+  info: {
+    displayName: 'oferta';
+    icon: 'slideshow';
+  };
+  attributes: {
+    Activo: Schema.Attribute.Boolean;
+    Descuento: Schema.Attribute.Decimal;
+    Limite: Schema.Attribute.DateTime;
+    motivo: Schema.Attribute.String;
+  };
+}
+
 export interface SharedQuote extends Struct.ComponentSchema {
   collectionName: 'components_shared_quotes';
   info: {
@@ -205,6 +219,7 @@ declare module '@strapi/strapi' {
       'shared.hero': SharedHero;
       'shared.media': SharedMedia;
       'shared.nav-bar': SharedNavBar;
+      'shared.oferta': SharedOferta;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;

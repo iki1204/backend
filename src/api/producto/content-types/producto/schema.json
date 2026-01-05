@@ -64,6 +64,14 @@
         }
       }
     },
+    "Precio4": {
+      "type": "decimal",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "cantidad_stock": {
       "type": "decimal",
       "pluginOptions": {
@@ -155,6 +163,16 @@
           "localized": true
         }
       }
+    },
+    "oferta": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.oferta",
+      "repeatable": false
     }
   }
 }

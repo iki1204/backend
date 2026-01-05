@@ -1,30 +1,52 @@
 
+let running = false;
+
 export default {
   "sync-products-every-5min": {
     task: async ({ strapi }) => {
-      strapi.log.info("⏳ Iniciando sincronización diaria de Contífico...");
+      if (running) {
+        strapi.log.warn("[CRON] Sync omitido: aún hay una sincronización en curso.");
+        return;
+      }
 
-       try {
-        const productoService = strapi.controller("api::producto.producto");
-        const categoriaService = strapi.controller("api::categoria.categoria");
-        const marcaService = strapi.controller("api::marca.marca");
+      running = true;
+      const startedAt = Date.now();
 
-        const [categorias, marcas, productos] = await Promise.all([
-          categoriaService.syncFromContifico(),
-          marcaService.syncFromContifico(),
-          productoService.syncFromContifico(),
+      try {
+        strapi.log.info(`[CRON] Sync iniciado ${new Date().toISOString()}`);
+
+        const productoCtrl = strapi.controller("api::producto.producto");
+        const categoriaCtrl = strapi.controller("api::categoria.categoria");
+        const marcaCtrl = strapi.controller("api::marca.marca");
+
+        const results = await Promise.allSettled([
+          categoriaCtrl.syncFromContifico(),
+          marcaCtrl.syncFromContifico(),
+          productoCtrl.syncFromContifico(),
         ]);
 
+        const [catRes, marRes, prodRes] = results;
+
+        if (catRes.status === "rejected") strapi.log.error("[CRON] Error categorías:", catRes.reason);
+        if (marRes.status === "rejected") strapi.log.error("[CRON] Error marcas:", marRes.reason);
+        if (prodRes.status === "rejected") strapi.log.error("[CRON] Error productos:", prodRes.reason);
+
+        const categorias = catRes.status === "fulfilled" ? catRes.value : { count: 0 };
+        const marcas = marRes.status === "fulfilled" ? marRes.value : { count: 0 };
+        const productos = prodRes.status === "fulfilled" ? prodRes.value : { count: 0 };
+
         strapi.log.info(
-          `Sync diaria completada: ${categorias.count} categorías, ${marcas.count} marcas, ${productos.count} productos`
+          `[CRON] Sync completada en ${Math.round((Date.now() - startedAt) / 1000)}s: ` +
+          `${categorias.count} categorías, ${marcas.count} marcas, ${productos.count} productos`
         );
       } catch (error) {
-        strapi.log.error("Error en la sincronización diaria de Contífico", error);
+        strapi.log.error("[CRON] Error general en sincronización", error);
+      } finally {
+        running = false;
       }
     },
     options: {
-      rule: "*/5 * * * *", // Cada 5 minutos
-    //rule: "0 3 * * *", // 03:00 UTC todos los días
+      rule: "*/10 * * * *",
     },
   },
 };

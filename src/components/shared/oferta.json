@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_ofertas",
+  "info": {
+    "displayName": "oferta",
+    "icon": "slideshow"
+  },
+  "options": {},
+  "attributes": {
+    "Activo": {
+      "type": "boolean"
+    },
+    "Descuento": {
+      "type": "decimal"
+    },
+    "Limite": {
+      "type": "datetime"
+    },
+    "motivo": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
