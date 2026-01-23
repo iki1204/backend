@@ -1261,9 +1261,7 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    tipoUsuario: Schema.Attribute.Enumeration<
-      ['tipo1', 'tipo2', 'tipo3', 'tipo4']
-    >;
+    tipoUsuario: Schema.Attribute.Enumeration<['pvp1', 'pvp2', 'pvp3', 'pvp4']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

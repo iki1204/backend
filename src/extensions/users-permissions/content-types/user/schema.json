@@ -69,10 +69,10 @@
     "tipoUsuario": {
       "type": "enumeration",
       "enum": [
-        "tipo1",
-        "tipo2",
-        "tipo3",
-        "tipo4"
+        "pvp1",
+        "pvp2",
+        "pvp3",
+        "pvp4"
       ]
     }
   }
